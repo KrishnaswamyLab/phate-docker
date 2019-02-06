@@ -1,4 +1,4 @@
-phate>=0.3.0
+phate>=0.4.0
 scprep>=0.10.0
 tasklogger>=0.4.0
 magic-impute>=1.5.1
