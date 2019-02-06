@@ -1,5 +1,4 @@
 # phate-docker
----------------------------------------------------------------------------
 
 [![Travis CI Build](https://api.travis-ci.com/KrishnaswamyLab/phate-docker.svg?branch=master)](https://travis-ci.com/KrishnaswamyLab/phate-docker)
 
