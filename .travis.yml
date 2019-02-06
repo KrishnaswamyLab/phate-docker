@@ -16,4 +16,4 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python magic_command_line.py --validate
+  - python phate_command_line.py --validate
