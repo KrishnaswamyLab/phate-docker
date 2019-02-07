@@ -6,7 +6,7 @@
 ### Quick Start
 
 ```
-docker pull scottgigante/phate:1.0
+docker pull scottgigante/phate:release-1.1
 docker run scottgigante/phate --help
 ```
 
