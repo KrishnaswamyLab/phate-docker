@@ -3,6 +3,8 @@
 [![Travis CI Build](https://api.travis-ci.com/KrishnaswamyLab/phate-docker.svg?branch=master)](https://travis-ci.com/KrishnaswamyLab/phate-docker)
 [![Docker Build](https://img.shields.io/docker/pulls/scottgigante/phate.svg?style=flat)](https://cloud.docker.com/repository/docker/scottgigante/phate)
 
+PHATE (Potential of Heat-diffusion for Affinity-based Trajectory Embedding) is a tool for visualizing high dimensional data. PHATE uses a novel conceptual framework for learning and visualizing the manifold to preserve both local and global distances.
+
 ### Quick Start
 
 ```
