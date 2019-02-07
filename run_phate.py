@@ -163,30 +163,45 @@ def run_phate_from_file(
                                                        pseudocount=pseudocount,
                                                        cofactor=cofactor)
 
+    # set up logging
+    # https://github.com/scottgigante/tasklogger
+    tasklogger.set_level(verbose)
+
     # load data
     # example: scprep.io.load_csv("data.csv")
     # https://scprep.readthedocs.io/en/stable/reference.html#module-scprep.io
+    tasklogger.log_info("Loading data from {}...".format(filename))
     data = load_fn(filename, **load_kws)
     data = scprep.sanitize.check_numeric(data, copy=True)
+    tasklogger.log_info("Loaded {} cells and {} genes.".format(
+        data.shape[0], data.shape[1]))
 
     # filter data
     # https://scprep.readthedocs.io/en/stable/reference.html#module-scprep.filter
     if min_library_size is not None:
+        tasklogger.log_info(
+            "Filtering cells by library size >= {}...".format(min_library_size))
         data = scprep.filter.filter_library_size(data,
                                                  cutoff=min_library_size)
+        tasklogger.log_info("Retained {} cells.".format(data.shape[0]))
     if min_cells_per_gene is not None:
-        data = scprep.filter.remove_rare_genes(data,
+        tasklogger.log_info(
+            "Filtering genes by min cells >= {}...".format(min_cells_per_gene))
+        data = scprep.filter.filter_rare_genes(data,
                                                min_cells=min_cells_per_gene)
+        tasklogger.log_info("Retained {} genes.".format(data.shape[1]))
 
     # normalize data
     # https://scprep.readthedocs.io/en/stable/reference.html#module-scprep.normalize
     if library_size_normalize:
+        tasklogger.log_info("Library size normalizing data...")
         data = scprep.normalize.library_size_normalize(data)
 
     # transform data
     # example: data = scprep.transform.sqrt(data)
     # https://scprep.readthedocs.io/en/stable/reference.html#module-scprep.transform
     if transform is not None:
+        tasklogger.log_info("Applying {} transform...".format(transform))
         data = transform_fn(data, **transform_kws)
 
     # run PHATE
@@ -206,7 +221,9 @@ def run_phate_from_file(
         else np.arange(phate_data.shape[0]))
     if cell_axis in ['col', 'column']:
         phate_data = phate_data.T
+    tasklogger.log_info("Saving data to {}...".format(output))
     phate_data.to_csv(output)
+    tasklogger.log_info("Complete.".format(output))
     if validate:
         correct_phate_data = scprep.io.load_csv(
             'https://raw.githubusercontent.com/KrishnaswamyLab/phate-docker/'
