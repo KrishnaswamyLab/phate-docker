@@ -12,10 +12,10 @@ docker run scottgigante/phate --help
 
 ### Usage Example
 
-Here we download a csv file containing raw scRNA-seq counts, preprocess it by filtering cells with less than 2000 counts, library size normalize and then apply a square root transform before running PHATE, and save the result to `magic_output.csv`.
+Here we download a csv file containing raw scRNA-seq counts, preprocess it by filtering cells with less than 2000 counts, library size normalize and then apply a square root transform before running PHATE, and save the result to `phate_output.csv` in your current working directory.
 
 ```
-docker run scottgigante/phate --filename https://github.com/KrishnaswamyLab/MAGIC/raw/master/data/HMLE_TGFb_day_8_10.csv.gz --min-library-size 2000 --normalize --transform sqrt --knn 5 --decay 15 --output phate_output.csv
+docker run -v ${PWD}:/data --rm scottgigante/phate --filename https://github.com/KrishnaswamyLab/MAGIC/raw/master/data/HMLE_TGFb_day_8_10.csv.gz --min-library-size 2000 --normalize --transform sqrt --knn 5 --decay 15 --output /data/phate_output.csv
 ```
 
 ### Validation
@@ -23,7 +23,7 @@ docker run scottgigante/phate --filename https://github.com/KrishnaswamyLab/MAGI
 You can check that PHATE is installed and running correctly with our [test dataset](https://raw.githubusercontent.com/KrishnaswamyLab/phate-docker/master/phate-validate.csv) as follows:
 
 ```
-docker run scottgigante/phate --validate
+docker run --rm scottgigante/phate --validate
 ```
 
 which will compare the results with expected output stored in [phate-validate.csv](https://github.com/KrishnaswamyLab/phate-docker/blob/master/phate-validate.csv).
